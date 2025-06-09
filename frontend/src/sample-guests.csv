@@ -1,0 +1,4 @@
+name,email,phone,group_id
+Alice Smith,alice@example.com,1234567890,1
+Bob Johnson,bob@example.com,2345678901,2
+Charlie Lee,charlie@example.com,3456789012,1
