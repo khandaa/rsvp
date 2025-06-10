@@ -1,5 +1,5 @@
 # backend/routes/rsvp.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from database import get_db
 
 rsvp_bp = Blueprint('rsvp', __name__, url_prefix='/api/rsvp')

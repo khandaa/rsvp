@@ -1,5 +1,5 @@
 # backend/routes/logistics.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from database import get_db
 
 logistics_bp = Blueprint('logistics', __name__, url_prefix='/api/logistics')
