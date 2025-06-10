@@ -119,7 +119,7 @@ function Dashboard({ children, onSectionChange, section }) {
   const drawer = (
     <div>
       <Toolbar>
-        <Typography variant="h6" noWrap fontWeight={700} color="primary">WedHaven</Typography>
+        <Typography variant="h6" noWrap fontWeight={700} color="primary">RSVP Me</Typography>
       </Toolbar>
       <Divider />
       <SidebarMenu menu={menuTree} section={section} onSectionChange={onSectionChange} />

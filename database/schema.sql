@@ -2,11 +2,12 @@
 
 -- Guests table
 CREATE TABLE guests (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20),
     group_id INTEGER,
+    wedding_id INTEGER,
     rsvp_status VARCHAR(20) DEFAULT 'no_response',
     rsvp_token VARCHAR(64),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -14,14 +15,21 @@ CREATE TABLE guests (
 
 -- Groups table
 CREATE TABLE groups (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255) NOT NULL,
     description TEXT
 );
 
+-- Weddings table
+CREATE TABLE weddings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+);
+
 -- Events/Schedule table
 CREATE TABLE events (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     start_time TIMESTAMP,
@@ -30,14 +38,14 @@ CREATE TABLE events (
 
 -- Guest-Event Assignment table
 CREATE TABLE guest_events (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     guest_id INTEGER REFERENCES guests(id),
     event_id INTEGER REFERENCES events(id)
 );
 
 -- Logistics table
 CREATE TABLE logistics (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     guest_id INTEGER REFERENCES guests(id),
     travel_mode VARCHAR(50),
     arrival_time TIMESTAMP,
@@ -47,10 +55,17 @@ CREATE TABLE logistics (
 
 -- Notifications table
 CREATE TABLE notifications (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     guest_id INTEGER REFERENCES guests(id),
     message TEXT,
     sent_at TIMESTAMP
+);
+
+-- RSVPs table
+CREATE TABLE rsvps (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    guest_id INTEGER REFERENCES guests(id),
+    status VARCHAR(20) NOT NULL
 );
 
 -- RSVP Secure Link Index

@@ -21,13 +21,11 @@
   - [x] 15.1 Display pick and drop details for guests
   - [x] 15.2 Allow event organizers to update pick and drop details
 
-- [ ] 16.0 Implement Guest Activity Module
-  - [ ] 16.1 Display guest activity and engagement (RSVPs, messages, etc.)
-  -  [ ] generate graphs and statistics for guest activity
+- [x] 16.0 Implement Guest Activity Module
+  - [x] 16.1 Display guest activity and engagement (RSVPs, messages, etc.)
+  - [x] generate graphs and statistics for guest activity
 
-- [ ] use appropriate icons for each menu and sub-menu
-- [ ] use appropriate colors for each menu and sub-menu
-- [ ] use appropriate font sizes for each menu and sub-menu
-- [ ] add each menu and sub-menu in the navigation bar in a tree format
-- [ ] add each menu and sub-menu in the navigation bar in a tree format
-- [ ] add each menu and sub-menu in the navigation bar in a tree format
+- [x] use appropriate icons for each menu and sub-menu
+- [x] use appropriate colors for each menu and sub-menu
+- [x] use appropriate font sizes for each menu and sub-menu
+- [x] add each menu and sub-menu in the navigation bar in a tree format
