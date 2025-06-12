@@ -3,16 +3,39 @@
 A full-stack web application for managing wedding RSVPs, guests, groups, events, logistics, notifications, and reporting dashboards. Built with React (frontend) and Flask (backend), supporting secure RSVP links and WhatsApp integration.
 
 ## Features
-- Guest management (CRUD, bulk import, search/filter)
-- Group management (CRUD, assign guests)
-- RSVP dashboard and secure RSVP links
-- Event management (CRUD)
-- Logistics management (CRUD)
-- Notifications (Email, SMS, WhatsApp)
-- Chatbot/FAQ
-- WhatsApp messaging
-- Reporting dashboards
-- Admin dashboard and default admin credentials: `admin/admin`
+- User Authentication & Authorization
+  - Registration and Login with JWT-based authentication
+  - Password reset functionality
+  - Role-based access control with separate admin and user views
+  - Secure token storage and validation
+- User Dashboard
+  - Personalized view of events and statistics
+  - Responsive design for mobile and desktop
+  - Quick access to primary functions
+- Guest Management
+  - CRUD operations for individual guests
+  - Bulk import from CSV/Excel
+  - Advanced search and filtering
+- Group Management
+  - Create and manage guest groups
+  - Assign/remove guests from groups
+  - Group statistics and reporting
+- RSVP Management
+  - Secure personalized RSVP links
+  - Status tracking and statistics
+  - Response management
+- Notification System
+  - **Enhanced! Multi-recipient messaging to individuals and groups**
+  - **WhatsApp integration as primary notification channel**
+  - Email and SMS alternatives
+  - **Message template support**
+  - Scheduled notifications
+  - Notification history tracking
+- Admin Dashboard
+  - Comprehensive event overview
+  - User management
+  - Default admin credentials: `admin/admin`
+  - System configuration options
 
 ## Tech Stack
 - Frontend: React, Material UI, Bootstrap

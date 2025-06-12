@@ -1,9 +1,10 @@
 // frontend/src/components/Dashboard.jsx
-import React from 'react';
-import { Box, Drawer, Toolbar, Typography, IconButton, Button, Divider, List, ListItem, ListItemIcon, ListItemText, Collapse } from '@mui/material';
+import React, { useContext } from 'react';
+import { Box, Drawer, Toolbar, Typography, IconButton, Button, Divider, List, ListItem, ListItemIcon, ListItemText, Collapse, CssBaseline, AppBar, useMediaQuery, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
+import { AuthContext } from '../context/AuthContext';
 import GroupIcon from '@mui/icons-material/Group';
 import PeopleIcon from '@mui/icons-material/People';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -17,6 +18,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const drawerWidth = 260;
 
@@ -53,6 +55,8 @@ const menuTree = [
     children: [
       { text: 'Travel Info', icon: <FlightIcon color="warning" />, section: 'travel' },
       { text: 'Stay Arrangements', icon: <HotelIcon color="warning" />, section: 'stay' },
+      { text: 'Hotels', icon: <HotelIcon color="warning" />, section: 'hotels' },
+      { text: 'Rooms', icon: <HotelIcon color="warning" />, section: 'rooms' },
       { text: 'Pick & Drop', icon: <DirectionsCarIcon color="warning" />, section: 'pickdrop' },
     ]
   },
@@ -109,11 +113,20 @@ function SidebarMenu({ menu, section, onSectionChange }) {
   );
 }
 
-function Dashboard({ children, onSectionChange, section }) {
+function Dashboard({ children, onSectionChange, section, eventId, onBackToEvents }) {
+  const { logout } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      logout();
+    }
   };
 
   const drawer = (
@@ -122,11 +135,17 @@ function Dashboard({ children, onSectionChange, section }) {
         <Typography variant="h6" noWrap fontWeight={700} color="primary">RSVP Me</Typography>
       </Toolbar>
       <Divider />
+      {eventId && (
+        <ListItem button onClick={onBackToEvents} sx={{ bgcolor: '#f0f7ff' }}>
+          <ListItemIcon><ArrowBackIcon color="primary" /></ListItemIcon>
+          <ListItemText primary="Back to All Events" />
+        </ListItem>
+      )}
       <SidebarMenu menu={menuTree} section={section} onSectionChange={onSectionChange} />
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon><LogoutIcon color="action" /></ListItemIcon>
           <ListItemText primary="Logout" />
         </ListItem>
@@ -136,6 +155,45 @@ function Dashboard({ children, onSectionChange, section }) {
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          backgroundColor: '#3f51b5',
+          boxShadow: 3
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 700 }}>
+              RSVP App {eventId ? ' - Event Management' : ''}
+            </Typography>
+            {eventId && (
+              <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+                <Button 
+                  color="inherit" 
+                  size="small"
+                  startIcon={<ArrowBackIcon />}
+                  onClick={onBackToEvents}
+                >
+                  Back
+                </Button>
+              </Box>
+            )}
+          </Box>
+        </Toolbar>
+      </AppBar>
       <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         <Drawer
           variant="permanent"
@@ -144,6 +202,20 @@ function Dashboard({ children, onSectionChange, section }) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, bgcolor: '#f8f9fa' }
           }}
           open
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, bgcolor: '#f8f9fa' }
+          }}
         >
           {drawer}
         </Drawer>
